@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <ModName>TableRange</ModName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6F9FEA45-7693-4101-836E-8B76E317C8C2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>$(ModName)</RootNamespace>
+    <AssemblyName>$(ModName)</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Steam Condition="'$(Steam)' == ''">C:\Program Files\Steam</Steam>
+    <RimWorld>$(Steam)\steamapps\common\RimWorld</RimWorld>
+    <ModsDir>$(RimWorld)\Mods</ModsDir>
+    <OutputPath>$(ModsDir)\$(ModName)</OutputPath>
+    <AssembliesSubDir>Assemblies</AssembliesSubDir>
+    <AssembliesDir>$(OutputPath)\$(AssembliesSubDir)</AssembliesDir>
+    <ModFiles>..\ModFiles</ModFiles>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(RimWorld)\RimWorldWin64.exe</StartProgram>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.2.1\lib\net472\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorld)\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="HugsLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UnlimitedHugs.Rimworld.HugsLib.9.0.1\lib\net472\HugsLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>$(RimWorld)\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(RimWorld)\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(RimWorld)\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(RimWorld)\RimWorldWin64_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources.cs" />
+    <Compile Include="TableRangeGizmo.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="MySettings.cs" />
+    <Compile Include="PlaceWorker_EatRange.cs" />
+    <Compile Include="State.cs" />
+    <Compile Include="Strings.cs" />
+    <Compile Include="TableRangeComp.cs" />
+    <Compile Include="ToilsIngest_Patch.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(ModFiles)\**" CopyToOutputDirectory="PreserveNewest">
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <SteamIdFile>About\PublishedFileId.txt</SteamIdFile>
+    <SteamIdFileDir>About</SteamIdFileDir>
+    <CopyBackFrom>$(OutputPath)\$(SteamIdFile)</CopyBackFrom>
+    <CopyBackTo>$(ModFiles)\$(SteamIdFile)</CopyBackTo>
+    <CopyBackDir>$(ModFiles)\$(SteamIdFileDir)</CopyBackDir>
+  </PropertyGroup>
+  <Target Name="BeforeBuild" Condition="Exists('$(CopyBackFrom)') And !Exists('$(CopyBackTo)')">
+    <Message Text="Copying mod ID file from mod folder back to $(CopyBackTo)" Importance="high" />
+    <Copy SourceFiles="$(CopyBackFrom)" DestinationFolder="$(CopyBackDir)" />
+  </Target>
+  <Target Name="AfterBuild">
+    <Message Text="Moving $(TargetFileName) -&gt; $(AssembliesSubDir)\$(TargetFileName)" Importance="high" />
+    <MakeDir Directories="$(AssembliesDir)" />
+    <Move SourceFiles="$(TargetPath)" DestinationFolder="$(AssembliesDir)" />
+  </Target>
+</Project>

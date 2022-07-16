@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D6225ACC-076F-47C6-B0EB-B70C8919C16F}") = "TableRange", "Source\TableRange.csproj", "{6F9FEA45-7693-4101-836E-8B76E317C8C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F9FEA45-7693-4101-836E-8B76E317C8C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F9FEA45-7693-4101-836E-8B76E317C8C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {490BE91D-BE58-4644-9729-646075548119}
+	EndGlobalSection
+EndGlobal
