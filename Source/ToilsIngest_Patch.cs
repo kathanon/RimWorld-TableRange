@@ -14,7 +14,6 @@ namespace TableRange
     public static class ToilsIngest_Patch
     {
         private static bool active = false;
-        private static Action original = null;
 
         public const float VanillaRange = MySettings.VanillaRange;
 
@@ -22,16 +21,13 @@ namespace TableRange
         [HarmonyPatch(nameof(Toils_Ingest.CarryIngestibleToChewSpot))]
         public static Toil CarryIngestibleToChewSpot_Postfix(Toil toil)
         {
-            original = toil.initAction;
-            toil.initAction = InitAction;
+            var original = toil.initAction;
+            toil.initAction = delegate {
+                active = true;
+                original();
+                active = false;
+            };
             return toil;
-        }
-
-        private static void InitAction()
-        {
-            active = true;
-            original();
-            active = false;
         }
 
         [HarmonyPrefix]

@@ -17,7 +17,7 @@ namespace TableRange
 
         public const int WinID = 15649835;
 
-        private readonly State.IndividualTables.Table state;
+        private readonly TableState state;
         private Rect sliderRect;
         private bool sliderOpen = false;
 

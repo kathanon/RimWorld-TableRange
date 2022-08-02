@@ -31,16 +31,6 @@ namespace TableRange
             Selected.ValueChanged    += State.UpdateSelected;
             SearchRange.ValueChanged += State.UpdateRange;
             SearchRange.CustomDrawer = DrawRangeOption;
-            /*
-            MURWallLight.PlaceWorker_WallLight p;
-            JobGiver_EatInGatheringArea x;
-            Toils_Ingest y;
-            PlaceWorker_ShowTurretRadius d;
-            CompGatherSpot g; g.CompGetGizmosExtra();
-            ThingWithComps t;
-            //ThingDef
-            //GhostDrawer.DrawGhostThing();
-            /* */
         }
 
         public static bool DrawRangeOption(Rect rect)

@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tables.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="TableRangeGizmo.cs" />
     <Compile Include="Main.cs" />

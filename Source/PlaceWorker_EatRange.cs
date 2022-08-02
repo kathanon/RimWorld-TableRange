@@ -21,7 +21,7 @@ namespace TableRange
             if (range > MaxRenderRange) return;
 
             var cells = new HashSet<IntVec3>();
-            var origins = GetOrigins(center, def.size, rot);
+            var origins = TableCells.GetAdjacent(def, center, rot);
             if (MySettings.UseChairs) origins = FilterForChairs(origins);
             bool first = true;
             foreach (IntVec3 origin in origins)
