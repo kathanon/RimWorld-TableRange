@@ -70,8 +70,11 @@ namespace TableRange {
         {
             if (Scribe.EnterNode(Strings.MOD_IDENTIFIER))
             {
-                Tables.ExposeData(save);
-                Scribe.ExitNode();
+                try {
+                    Tables.ExposeData(save);
+                } finally {
+                    Scribe.ExitNode();
+                }
             }
         }
     }

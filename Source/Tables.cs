@@ -79,6 +79,8 @@ namespace TableRange {
 
         public readonly HashSet<Thing> Tables;
 
+        public TableState() : this(false) {}
+
         public TableState(bool linkable) {
             Tables = linkable ? new HashSet<Thing>() : null;
         }

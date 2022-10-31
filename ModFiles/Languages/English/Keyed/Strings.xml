@@ -13,6 +13,6 @@ Otherwise, the area from where any of the chairs are reachable is used - i.e. th
 	<kathanon.TableRange.UseChairs.desc>When displaying the use area, if there are any chairs or blueprints for chairs already placed, only the area for the placed chairs will be shown. If disabled, all potential chair spots will always be used.</kathanon.TableRange.UseChairs.desc>
 	<kathanon.TableRange.Selected.title>Display area for selected</kathanon.TableRange.Selected.title>
 	<kathanon.TableRange.Selected.desc>Also display the use area when an already placed table is selected.</kathanon.TableRange.Selected.desc>
-	<kathanon.TableRange.UseRange>Use Range</kathanon.TableRange.UseRange>
-	<kathanon.TableRange.UseRange.tip>Set a specific maximum range that pawns will use this table from.</kathanon.TableRange.UseRange.tip>
+	<kathanon.TableRange.UseRange>Set Range</kathanon.TableRange.UseRange>
+	<kathanon.TableRange.UseRange.tip>Set a specific maximum range that pawns will use this table from, overriding the global value.</kathanon.TableRange.UseRange.tip>
 </LanguageData>
