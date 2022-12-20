@@ -59,8 +59,11 @@
   </ItemGroup>
   <!-- Project files -->
   <ItemGroup>
-    <Compile Include="Tables.cs" />
+    <Compile Include="Compat_CommonSense.cs" />
+    <Compile Include="IndividualTables.cs" />
+    <Compile Include="Patch_ThingUpdate.cs" />
     <Compile Include="Resources.cs" />
+    <Compile Include="TableExtensions.cs" />
     <Compile Include="TableRangeGizmo.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="MySettings.cs" />
@@ -68,13 +71,17 @@
     <Compile Include="State.cs" />
     <Compile Include="Strings.cs" />
     <Compile Include="TableRangeComp.cs" />
-    <Compile Include="ToilsIngest_Patch.cs" />
+    <Compile Include="TableState.cs" />
+    <Compile Include="Patch_ToilsIngest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <!-- Include ModFiles -->
   <ItemGroup>
     <None Include="$(ModFiles)\**" CopyToOutputDirectory="PreserveNewest">
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </None>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
     </None>
   </ItemGroup>
 </Project>

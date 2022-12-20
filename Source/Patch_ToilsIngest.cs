@@ -11,7 +11,7 @@ using Verse.AI;
 namespace TableRange
 {
     [HarmonyPatch(typeof(Toils_Ingest))]
-    public static class ToilsIngest_Patch
+    public static class Patch_ToilsIngest
     {
         private static bool active = false;
 

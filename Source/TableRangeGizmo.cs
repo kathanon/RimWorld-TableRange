@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
-namespace TableRange
-{
-    public class TableRangeGizmo : Command_Toggle
-    {
+namespace TableRange {
+    public class TableRangeGizmo : Command_Toggle {
         public const float PopupWidth   = 300f;
         public const float PopupHeight  =  40f;
         public const float Margin       =   8f;
@@ -21,8 +19,7 @@ namespace TableRange
         private Rect sliderRect;
         private bool sliderOpen = false;
 
-        public TableRangeGizmo(Thing table)
-        {
+        public TableRangeGizmo(Thing table) {
             state = State.Tables[table];
             isActive = state.IsActive;
             toggleAction = state.Toggle;
@@ -31,35 +28,41 @@ namespace TableRange
             icon = Resources.UseRange;
         }
 
-        protected override GizmoResult GizmoOnGUIInt(Rect butRect, GizmoRenderParms parms)
-        {
-            sliderOpen = state && (Mouse.IsOver(butRect) || (sliderOpen && sliderRect.ExpandedBy(2f).Contains(Event.current.mousePosition)));
+        protected override GizmoResult GizmoOnGUIInt(Rect butRect, GizmoRenderParms parms) {
+            if (state.Active) {
+                if (Mouse.IsOver(butRect)) {
+                    sliderOpen = true;
+                } else if (!sliderRect.ExpandedBy(2f).Contains(Event.current.mousePosition)) {
+                    sliderOpen = false;
+                }
+            } else {
+                sliderOpen = false;
+            }
+
             if (sliderOpen) Window(butRect);
             return base.GizmoOnGUIInt(butRect, parms);
         }
 
-        private void Window(Rect gizmo)
-        {
-            if (gizmo.xMax + PopupWidth < Screen.width)
-            {
-                sliderRect = new Rect(gizmo.xMax, gizmo.y + (gizmo.height - PopupHeight) / 2, PopupWidth, PopupHeight);
+        private void Window(Rect gizmo) {
+            float x, y;
+            if (gizmo.xMax + PopupWidth < Screen.width) {
+                x = gizmo.xMax;
+                y = gizmo.y + (gizmo.height - PopupHeight) / 2;
+            } else {
+                x = Mathf.Min(gizmo.x, Screen.width - PopupWidth);
+                y = gizmo.y - PopupHeight;
             }
-            else
-            {
-                sliderRect = new Rect(Mathf.Min(gizmo.x, Screen.width - PopupWidth), gizmo.y - PopupHeight, PopupWidth, PopupHeight);
-            }
+            sliderRect = new Rect(x, y, PopupWidth, PopupHeight);
             Find.WindowStack.ImmediateWindow(WinID, sliderRect, WindowLayer.Dialog, DoSlider);
         }
 
-        public void DoSlider()
-        {
-            float oldValue = state;
+        public void DoSlider() {
+            float oldValue = state.Range;
             float newValue = Slider(sliderRect.AtZero(), oldValue);
             if (oldValue != newValue) state.Range = newValue;
         }
 
-        public static float Slider(Rect rect, float value)
-        {
+        public static float Slider(Rect rect, float value) {
             Rect widget = new Rect(rect.x + Margin, rect.y, LabelWidth, rect.height);
             TextAnchor anchor = Text.Anchor;
             Text.Anchor = TextAnchor.MiddleLeft;

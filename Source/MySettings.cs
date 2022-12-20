@@ -12,7 +12,7 @@ namespace TableRange
         public static SettingHandle<float> SearchRange;
         public static SettingHandle<bool>  IndividualRange;
         public static SettingHandle<bool>  DisplayRange;
-        public static SettingHandle<bool>  RangeToAll;
+        public static SettingHandle<bool>  RangeToAny;
         public static SettingHandle<bool>  UseChairs;
         public static SettingHandle<bool>  Selected;
 
@@ -24,13 +24,17 @@ namespace TableRange
             SearchRange     = settings.GetHandle("searchRange",     Strings.SearchRange_title,     Strings.SearchRange_desc,     VanillaRange);
             IndividualRange = settings.GetHandle("individualRange", Strings.IndividualRange_title, Strings.IndividualRange_desc, true);
             DisplayRange    = settings.GetHandle("displayRange",    Strings.DisplayRange_title,    Strings.DisplayRange_desc,    true);
-            RangeToAll      = settings.GetHandle("rangeToAll",      Strings.RangeToAll_title,      Strings.RangeToAll_desc,      true);
+            RangeToAny      = settings.GetHandle("rangeToAll",      Strings.RangeToAny_title,      Strings.RangeToAny_desc,      true);
             UseChairs       = settings.GetHandle("useChairs",       Strings.UseChairs_title,       Strings.UseChairs_desc,       true);
             Selected        = settings.GetHandle("selected",        Strings.Selected_title,        Strings.Selected_desc,        true);
 
-            Selected.ValueChanged    += State.UpdateSelected;
-            SearchRange.ValueChanged += State.UpdateRange;
-            SearchRange.CustomDrawer = DrawRangeOption;
+            SearchRange    .ValueChanged += State.UpdateRangeDirty;
+            IndividualRange.ValueChanged += State.UpdateRangeDirty;
+            RangeToAny     .ValueChanged += State.UpdateRangeDirty;
+            UseChairs      .ValueChanged += State.UpdateRangeDirty;
+            Selected       .ValueChanged += State.UpdateSelected;
+            SearchRange    .ValueChanged += State.UpdateRange;
+            SearchRange    .CustomDrawer = DrawRangeOption;
         }
 
         public static bool DrawRangeOption(Rect rect)
